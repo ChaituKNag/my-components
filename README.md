@@ -7,7 +7,7 @@
 ## Install
 
 ```bash
-npm install --save my-components
+npm install --save @nkonada/components
 ```
 
 ## Usage
@@ -15,12 +15,12 @@ npm install --save my-components
 ```jsx
 import React, { Component } from 'react'
 
-import MyComponent from 'my-components'
-import 'my-components/dist/index.css'
+import { ExampleComponent } from '@nkonada/components'
+import '@nkonada/components/dist/index.css'
 
 class Example extends Component {
   render() {
-    return <MyComponent />
+    return <ExampleComponent />
   }
 }
 ```
