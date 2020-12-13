@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 
-const useLocalStorage = (name, defaultValue) => {
+const useLocalStorage = (name, defaultValue = null) => {
   const [value, setValue] = useState(defaultValue)
   const updateValue = (v) => {
     let newValue
@@ -20,9 +20,11 @@ const useLocalStorage = (name, defaultValue) => {
 
   useEffect(() => {
     if (localStorage) {
-      const fromStorage = JSON.parse(localStorage.getItem(name))
-      if (fromStorage !== null) setValue(fromStorage)
-      else {
+      const fromStorage = localStorage.getItem(name)
+      if (fromStorage !== null) {
+        const parsedFromStorage = JSON.parse(fromStorage)
+        setValue(parsedFromStorage)
+      } else if (defaultValue !== null) {
         localStorage.setItem(name, JSON.stringify(defaultValue))
       }
     }
