@@ -14,6 +14,14 @@ import DarkModeProviderExample from './DarkModeProvider.example'
     },
     onToggle: {
       action: 'toggled'
+    },
+    options: {
+      darkByDefault: {
+        control: 'boolean'
+      },
+      automatic: {
+        control: 'boolean'
+      }
     }
   }}
   parameters={{
@@ -24,12 +32,6 @@ import DarkModeProviderExample from './DarkModeProvider.example'
     }
   }}
 />
-
-export const Template = (args) => (
-  <DarkModeProvider>
-    <DarkModeProviderExample {...args} />
-  </DarkModeProvider>
-)
 
 # Dark mode in components
 
@@ -62,8 +64,46 @@ const ChildComponent = () => {
 }
 ```
 
+# Default example
+
+export const Template = ({ options = {}, ...args }) => (
+  <DarkModeProvider options={options}>
+    <DarkModeProviderExample {...args} />
+  </DarkModeProvider>
+)
+
 <Canvas>
   <Story name='default'>{Template.bind({})}</Story>
 </Canvas>
 
 <ArgsTable of={DarkModeProviderExample} />
+
+# Darkmode by default
+
+<Canvas>
+  <Story
+    name='dark by default'
+    args={{
+      options: {
+        darkByDefault: true
+      }
+    }}
+  >
+    {Template.bind({})}
+  </Story>
+</Canvas>
+
+# Automatic based on device dark mode
+
+<Canvas>
+  <Story
+    name='automatic'
+    args={{
+      options: {
+        automatic: true
+      }
+    }}
+  >
+    {Template.bind({})}
+  </Story>
+</Canvas>
