@@ -1,0 +1,109 @@
+import { Meta, Story, Canvas, ArgsTable } from '@storybook/addon-docs/blocks'
+import DarkModeProvider from './DarkModeProvider'
+import DarkModeProviderExample from './DarkModeProvider.example'
+
+<Meta
+  title='Features/Dark-mode'
+  component='DarkModeProvider'
+  argTypes={{
+    darkColor: {
+      control: 'color'
+    },
+    lightColor: {
+      control: 'color'
+    },
+    onToggle: {
+      action: 'toggled'
+    },
+    options: {
+      darkByDefault: {
+        control: 'boolean'
+      },
+      automatic: {
+        control: 'boolean'
+      }
+    }
+  }}
+  parameters={{
+    docs: {
+      source: {
+        type: 'code'
+      }
+    }
+  }}
+/>
+
+# Dark mode in components
+
+Dark mode gives developer and user the control of changing the theme colors etc
+based on their preference when viewing the application at different times of
+the day. You may change the color and contrast options in your theme to match
+the time of the day either automatically or manually and get better user
+engagement.
+
+To enable dark mode in your app using `DarkModeProvider` and `useDarkMode` custom
+hook, firstly, add the `<DarkModeProvider>` to your application root.
+
+```jsx
+<DarkModeProvider>
+  <ApplicationRoot />
+</DarkModeProvider>
+```
+
+Now, somewhere in your component hierarchy where you are controlling your theme
+colors, use the custom hook.
+
+```jsx
+// somewhere in your component hierarchy
+const ChildComponent = () => {
+  const [darkMode, setDarkMode] = useDarkMode();
+  return <div>
+    {darkMode ? <RenderDarkStuff />}
+    {!darkMode ? <RenderLightStuff />}
+  </div>
+}
+```
+
+# Default example
+
+export const Template = ({ options = {}, ...args }) => (
+  <DarkModeProvider options={options}>
+    <DarkModeProviderExample {...args} />
+  </DarkModeProvider>
+)
+
+<Canvas>
+  <Story name='default'>{Template.bind({})}</Story>
+</Canvas>
+
+<ArgsTable of={DarkModeProviderExample} />
+
+# Darkmode by default
+
+<Canvas>
+  <Story
+    name='dark by default'
+    args={{
+      options: {
+        darkByDefault: true
+      }
+    }}
+  >
+    {Template.bind({})}
+  </Story>
+</Canvas>
+
+# Automatic based on device dark mode
+
+<Canvas>
+  <Story
+    name='automatic'
+    args={{
+      options: {
+        automatic: true
+      }
+    }}
+  >
+    {Template.bind({})}
+  </Story>
+</Canvas>

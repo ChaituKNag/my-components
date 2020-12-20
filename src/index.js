@@ -1,6 +1,5 @@
 import React from 'react'
-import styles from './styles.module.css'
+import DarkModeProvider from './components/dark-mode/DarkModeProvider'
+import useDarkMode from './components/dark-mode/use-dark-mode.hook'
 
-export const ExampleComponent = ({ text }) => {
-  return <div className={styles.test}>Example Component: {text}</div>
-}
+export { DarkModeProvider, useDarkMode }
